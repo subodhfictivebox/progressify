@@ -18,8 +18,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private EmailService emailService;
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -31,13 +29,6 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole(user.getRole());
             userRepository.save(user);
-
-//            Context context = new Context();
-//            context.setVariable("username", user.getUsername());
-
-
-//            emailService.sendEmail(user.getUsername(), "Welcome to Our Service");
-
         } catch (Exception e) {
             log.error("Error while saving the user: " + e.getMessage());
             throw new RuntimeException("Error while saving the user: " + e.getMessage());
