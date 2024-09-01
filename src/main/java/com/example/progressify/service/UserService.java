@@ -32,6 +32,7 @@ public class UserService {
         } catch (Exception e) {
             log.error("Error while saving the user: " + e.getMessage());
             throw new RuntimeException("Error while saving the user: " + e.getMessage());
+
         }
     }
 
