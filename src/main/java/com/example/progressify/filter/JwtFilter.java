@@ -42,4 +42,11 @@ public class JwtFilter  extends OncePerRequestFilter {
         }
         chain.doFilter(request, response);
     }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        // Exclude paths like /api/auth/** and /api/test/** from being filtered
+        String path = request.getRequestURI();
+        return path.startsWith("/api/auth/") || path.startsWith("/api/test/");
+    }
 }
