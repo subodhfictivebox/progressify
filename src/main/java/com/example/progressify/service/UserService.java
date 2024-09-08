@@ -21,7 +21,7 @@ public class UserService {
 
     private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public void saveNewUser(User user) {
+    public boolean saveNewUser(User user) {
         if (userRepository.findByUsername(user.getUsername()) != null) {
             throw new DuplicateEntityException("Username already exists: " + user.getUsername());
         }
@@ -29,12 +29,11 @@ public class UserService {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
             user.setRole(user.getRole());
             userRepository.save(user);
+            return true;
         } catch (Exception e) {
             log.error("Error while saving the user: " + e.getMessage());
             throw new RuntimeException("Error while saving the user: " + e.getMessage());
-
         }
     }
-
 }
 
